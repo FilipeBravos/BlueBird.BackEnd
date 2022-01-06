@@ -32,14 +32,14 @@ namespace BlueBird.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<CadastroDTO>> GetCadastro(long id)
         {
-            var todoItem = await _context.Cadastro.FindAsync(id);
+            var cadastro = await _context.Cadastro.FindAsync(id);
 
-            if (todoItem == null)
+            if (cadastro == null)
             {
                 return NotFound();
             }
 
-            return CadastroDTO(Cadastro);
+            return CadastroDTO(cadastro);
         }
 
         [HttpPut("{id}")]
@@ -50,26 +50,25 @@ namespace BlueBird.Controllers
                 return BadRequest();
             }
 
-            var Cadastro = await _context.Cadastro.FindAsync(id);
-            if (Cadastro == null)
+            var cadastro = await _context.Cadastro.FindAsync(id);
+            if (cadastro == null)
             {
                 return NotFound();
             }
-
-            Cadastro.Nome = CadastroDTO.Nome;
-            Cadastro.Idade = CadastroDTO.Idade;
-            Cadastro.NomePai = CadastroDTO.NomePai;
-            Cadastro.NomeMae = CadastroDTO.NomeMae;
-            Cadastro.Convenio = CadastroDTO.Convenio;
-            Cadastro.CelularResp = CadastroDTO.CelularResp;
-            Cadastro.Endereco = CadastroDTO.Endereco;
-            Cadastro.Medico = CadastroDTO.Medico;
-            Cadastro.TerapeutaOcupacional = CadastroDTO.TerapeutaOcupacional;
-            Cadastro.Fonoaudiologo = CadastroDTO.Fonoaudiologo;
-            Cadastro.Escola = CadastroDTO.Escola;
-            Cadastro.TelefoneEscola = CadastroDTO.TelefoneEscola;
-            Cadastro.SerieEscolar = CadastroDTO.SerieEscolar;
-            
+            cadastro.Nome = CadastroDTO.Nome;
+            cadastro.Idade = CadastroDTO.Idade;
+            cadastro.NomePai = CadastroDTO.NomePai;
+            cadastro.NomeMae = CadastroDTO.NomeMae;
+            cadastro.Convenio = CadastroDTO.Convenio;
+            cadastro.CelularResp = CadastroDTO.CelularResp;
+            cadastro.Endereco = CadastroDTO.Endereco;
+            cadastro.Medico = CadastroDTO.Medico;
+            cadastro.TerapeutaOcupacional = CadastroDTO.TerapeutaOcupacional;
+            cadastro.Fonoaudiologo = CadastroDTO.Fonoaudiologo;
+            cadastro.Escola = CadastroDTO.Escola;
+            cadastro.TelefoneEscola = CadastroDTO.TelefoneEscola;
+            cadastro.SerieEscolar = CadastroDTO.SerieEscolar;
+        
 
             try
             {
@@ -84,9 +83,9 @@ namespace BlueBird.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<CadastroDTO>> CreateTodoItem(CadastroDTO CadastroDTO)
+        public async Task<ActionResult<CadastroDTO>> CreateCasdatro(CadastroDTO CadastroDTO)
         {
-            var Cadastro = new Cadastro
+            var cadastro = new Cadastro
             {
                 Nome = CadastroDTO.Nome,
                 Idade = CadastroDTO.Idade,
@@ -103,13 +102,10 @@ namespace BlueBird.Controllers
                 SerieEscolar = CadastroDTO.SerieEscolar
             };
 
-            _context.Cadastro.Add(Cadastro);
+            _context.Cadastro.Add(cadastro);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(
-                nameof(GetCadastro),
-                new { id = Cadastro.Id },
-                CadastroDTO(Cadastro));
+            return Ok(cadastro);
         }
 
         [HttpDelete("{id}")]
