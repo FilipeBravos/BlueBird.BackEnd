@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace Cadastro.Models
+namespace BlueBird.Models
 {
     public class CadastroContext : DbContext
     {

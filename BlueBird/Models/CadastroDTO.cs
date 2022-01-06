@@ -1,6 +1,6 @@
 namespace BlueBird.Models
 {
-    public class Cadastro
+    public class CadastroDTO
     {
         public long Id { get; set; }
         public string Nome { get; set; }
@@ -19,5 +19,3 @@ namespace BlueBird.Models
         
     }
 }
-
-
